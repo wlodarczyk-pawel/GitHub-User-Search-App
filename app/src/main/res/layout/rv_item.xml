@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    android:elevation="5dp"
+    android:backgroundTint="@color/white">
+
+    <!-- Constrain Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <!-- User Avatar -->
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"/>
+        <!-- User Name -->
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintBottom_toTopOf="@id/login"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            tools:text="Name: "
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:textStyle="bold"/>
+        <!-- User Logine -->
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintBottom_toTopOf="@id/location"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Login: "
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
+        <!-- User Location -->
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Location: "
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
+        <!-- User Bio -->
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Bio: "
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
+        <!-- User email -->
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintTop_toBottomOf="@id/location"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Email: "
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
+        <!-- User Public Repos -->
+        <TextView
+            android:id="@+id/public_repos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintBaseline_toBaselineOf="@id/repos"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Repositories: "
+            android:layout_marginStart="10dp"/>
+        <!-- Button Repos View -->
+        <Button
+            android:id="@+id/repos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryDarkColor"
+            app:layout_constraintTop_toBottomOf="@id/bio"
+            app:layout_constraintStart_toStartOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="@id/avatar"
+            tools:text="Repos"
+            android:layout_marginTop="40dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
