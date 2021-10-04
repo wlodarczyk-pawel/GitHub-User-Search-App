@@ -21,7 +21,7 @@ object ApiClient {
             .build()
     }
 
-    val apiService : ApiService by lazy {
+    val apiService: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
 }
@@ -29,6 +29,6 @@ object ApiClient {
 interface ApiService {
 
     @GET("users/{login}")
-    fun fetchUserProfiles(@Path("login") login:String): Call<UserProfile>
+    fun fetchUserProfiles(@Path("login") login: String): Call<UserProfile>
 
 }

@@ -12,9 +12,10 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.wlodarczyk.githubusersearchapp.network.UserProfile
 
-class MainAdapter(val userList: List<UserProfile>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(val userList: List<UserProfile>) :
+    RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    inner class MainViewHolder(private val itemView:View):RecyclerView.ViewHolder(itemView) {
+    inner class MainViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
         fun bindData(userProfile: UserProfile) {
 
@@ -35,9 +36,9 @@ class MainAdapter(val userList: List<UserProfile>) : RecyclerView.Adapter<MainAd
             location.text = userProfile.location
             email.text = userProfile.email
             bio.text = userProfile.bio
-            public_repos.text = "Repositories: "+userProfile.public_repos
+            public_repos.text = "Repositories: " + userProfile.public_repos
 
-            avatar.load(userProfile.avatar_url){
+            avatar.load(userProfile.avatar_url) {
                 crossfade(700)
                 transformations(CircleCropTransformation())
                 scale(coil.size.Scale.FILL)
@@ -46,7 +47,9 @@ class MainAdapter(val userList: List<UserProfile>) : RecyclerView.Adapter<MainAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false))
+        return MainViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {

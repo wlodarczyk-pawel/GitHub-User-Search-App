@@ -2,26 +2,26 @@ package com.wlodarczyk.githubusersearchapp.network
 
 import com.squareup.moshi.Json
 
-data class UserProfile (
+data class UserProfile(
 
     @Json(name = "login")
-    val login : String,
+    val login: String,
     @Json(name = "avatar_url")
-    val avatar_url : String,
+    val avatar_url: String,
     @Json(name = "location")
-    val location : String?,
+    val location: String?,
     @Json(name = "bio")
-    val bio : String?,
+    val bio: String?,
     @Json(name = "email")
-    val email : String?,
+    val email: String?,
     @Json(name = "public_repos")
-    val public_repos : String,
+    val public_repos: String,
     @Json(name = "repos_url")
-    val repos_url : String,
+    val repos_url: String,
     @Json(name = "name")
-    val name : String
+    val name: String
 )
 
-data class UserProfileList (
+/*data class UserProfileList(
     val result: List<UserProfile>
-)
+)*/
