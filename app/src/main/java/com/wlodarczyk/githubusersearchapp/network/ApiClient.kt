@@ -31,4 +31,7 @@ interface ApiService {
     @GET("users/{login}")
     fun fetchUserProfiles(@Path("login") login: String): Call<UserProfile>
 
+    @GET("users/{login}/repos")
+    fun fetchUserRepos(@Path("login") login: String): Call<List<UserRepos>>
+
 }

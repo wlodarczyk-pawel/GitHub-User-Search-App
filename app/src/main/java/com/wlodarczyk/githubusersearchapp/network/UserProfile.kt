@@ -21,7 +21,3 @@ data class UserProfile(
     @Json(name = "name")
     val name: String
 )
-
-/*data class UserProfileList(
-    val result: List<UserProfile>
-)*/

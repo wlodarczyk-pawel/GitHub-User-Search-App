@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wlodarczyk.githubusersearchapp.MainAdapter
 import com.wlodarczyk.githubusersearchapp.R
+import com.wlodarczyk.githubusersearchapp.ReposAdapter
 import com.wlodarczyk.githubusersearchapp.network.ApiClient
 import com.wlodarczyk.githubusersearchapp.network.UserProfile
+import com.wlodarczyk.githubusersearchapp.network.UserRepos
 import retrofit2.Call
 import retrofit2.Response
 
@@ -41,7 +43,7 @@ class UserSearchActivity : AppCompatActivity() {
                 override fun onResponse(
                     call: Call<UserProfile>, response: Response<UserProfile>
                 ) {
-                    handleResponse(response)
+                    handleResponse(response, userName)
                 }
 
                 override fun onFailure(call: Call<UserProfile>, t: Throwable) {
@@ -59,7 +61,7 @@ class UserSearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleResponse(response: Response<UserProfile>) {
+    private fun handleResponse(response: Response<UserProfile>, userName: String) {
 
         if (response.isSuccessful) {
             Log.d("onResponse: ", "success " + response.body())
@@ -70,6 +72,46 @@ class UserSearchActivity : AppCompatActivity() {
                 val recyclerView = findViewById<RecyclerView>(R.id.usersRecyclerView)
                 recyclerView?.layoutManager =
                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+                recyclerView?.adapter = adapter
+            }
+            fetchRepos(userName)
+        }
+    }
+
+    private fun fetchRepos(userName: String) {
+
+        if (userName.trim().isNotEmpty()) {
+
+            val client = ApiClient.apiService.fetchUserRepos(userName)
+            client.enqueue(object : retrofit2.Callback<List<UserRepos>> {
+
+                override fun onResponse(
+                    call: Call<List<UserRepos>>, response: Response<List<UserRepos>>
+                ) {
+                    handleResponseRepos(response)
+                }
+
+                override fun onFailure(call: Call<List<UserRepos>>, t: Throwable) {
+                    Log.d("onFailureRepos: ", "failed " + t.message)
+                }
+            })
+
+        } else {
+            Toast.makeText(this@UserSearchActivity, "Repos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleResponseRepos(response: Response<List<UserRepos>>) {
+
+        if (response.isSuccessful) {
+            Log.d("onResponseRepos: ", "success " + response.body())
+
+            val result = response.body()
+            result?.let {
+                val adapter = ReposAdapter(result as List<UserRepos>)
+                val recyclerView = findViewById<RecyclerView>(R.id.reposRecyclerView)
+                recyclerView?.layoutManager =
+                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
                 recyclerView?.adapter = adapter
             }
         }

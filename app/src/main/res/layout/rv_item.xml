@@ -7,7 +7,8 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="5dp"
     android:elevation="5dp"
-    android:backgroundTint="@color/white">
+    android:backgroundTint="@color/white"
+    tools:context=".ui.UserSearchActivity">
 
     <!-- Constrain Layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,7 +116,7 @@
             app:layout_constraintStart_toStartOf="@id/avatar"
             app:layout_constraintEnd_toEndOf="@id/avatar"
             tools:text="Repos"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="40dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

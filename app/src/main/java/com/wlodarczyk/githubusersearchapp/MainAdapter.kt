@@ -16,6 +16,9 @@ class MainAdapter(val userList: List<UserProfile>) :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     inner class MainViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private var repos = itemView.findViewById<Button>(R.id.repos)
+
         @SuppressLint("SetTextI18n")
         fun bindData(userProfile: UserProfile) {
 
@@ -27,7 +30,6 @@ class MainAdapter(val userList: List<UserProfile>) :
             val public_repos = itemView.findViewById<TextView>(R.id.public_repos)
 
             val avatar = itemView.findViewById<ImageView>(R.id.avatar)
-            val repos = itemView.findViewById<Button>(R.id.repos)
 
             repos.text = "REPOS"
 
@@ -43,8 +45,11 @@ class MainAdapter(val userList: List<UserProfile>) :
                 transformations(CircleCropTransformation())
                 scale(coil.size.Scale.FILL)
             }
+
         }
+
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
@@ -59,6 +64,7 @@ class MainAdapter(val userList: List<UserProfile>) :
     override fun getItemCount(): Int {
         return userList.size
     }
+
 }
 
 
