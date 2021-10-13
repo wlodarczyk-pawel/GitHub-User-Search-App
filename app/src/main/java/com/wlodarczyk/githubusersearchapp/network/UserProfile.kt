@@ -20,4 +20,5 @@ data class UserProfile(
     val repos_url: String,
     @Json(name = "name")
     val name: String
+
 )

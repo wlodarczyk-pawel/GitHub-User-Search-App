@@ -23,11 +23,9 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
             val size = itemView.findViewById<TextView>(R.id.size)
             val stars_count = itemView.findViewById<TextView>(R.id.stars_count)
             val watchers_count = itemView.findViewById<TextView>(R.id.watchers_count)
-
             val open = itemView.findViewById<Button>(R.id.open)
 
-            open.text = "REPOS"
-
+            open.text = "OPEN"
             repo_name.text = userRepos.name
             description.text = userRepos.description
             created_at.text = "Created at " + userRepos.created_at

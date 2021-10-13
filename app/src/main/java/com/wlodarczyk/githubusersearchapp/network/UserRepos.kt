@@ -20,4 +20,5 @@ data class UserRepos(
     val stargazers_count: String,
     @Json(name = "watchers_count")
     val watchers_count: String
+
 )

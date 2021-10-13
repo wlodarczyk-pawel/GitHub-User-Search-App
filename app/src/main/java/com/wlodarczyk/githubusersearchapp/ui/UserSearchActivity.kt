@@ -17,9 +17,10 @@ import com.wlodarczyk.githubusersearchapp.network.UserRepos
 import retrofit2.Call
 import retrofit2.Response
 
-class UserSearchActivity : AppCompatActivity() {
+class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
 
     lateinit var button: Button
+    var userName : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +31,14 @@ class UserSearchActivity : AppCompatActivity() {
 
     }
 
+    override fun onRepoButton() {
+        fetchRepos(userName)
+    }
+
     private fun fetchUsers() {
 
         val enterUserName = findViewById(R.id.enterUserName) as EditText
-        val userName = enterUserName.text.toString()
+        userName = enterUserName.text.toString()
 
         if (userName.trim().isNotEmpty()) {
 
@@ -67,14 +72,15 @@ class UserSearchActivity : AppCompatActivity() {
             Log.d("onResponse: ", "success " + response.body())
 
             val result = listOf(response.body())
-            result?.let {
-                val adapter = MainAdapter(result as List<UserProfile>)
+            result.let {
+                val adapter = MainAdapter(result as List<UserProfile>, this)
                 val recyclerView = findViewById<RecyclerView>(R.id.usersRecyclerView)
                 recyclerView?.layoutManager =
                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
                 recyclerView?.adapter = adapter
+
             }
-            fetchRepos(userName)
+            //fetchRepos(userName)
         }
     }
 
@@ -117,5 +123,8 @@ class UserSearchActivity : AppCompatActivity() {
         }
     }
 
+}
 
+interface OnRepoButtonListener {
+    fun onRepoButton()
 }

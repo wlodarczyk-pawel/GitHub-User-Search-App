@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.wlodarczyk.githubusersearchapp.network.UserProfile
+import com.wlodarczyk.githubusersearchapp.ui.OnRepoButtonListener
 
-class MainAdapter(val userList: List<UserProfile>) :
+class MainAdapter(val userList: List<UserProfile>, val onRepoButtonListener: OnRepoButtonListener) :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     inner class MainViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private var repos = itemView.findViewById<Button>(R.id.repos)
+        var repos : Button = itemView.findViewById<Button>(R.id.repos)
 
         @SuppressLint("SetTextI18n")
         fun bindData(userProfile: UserProfile) {
@@ -28,11 +29,9 @@ class MainAdapter(val userList: List<UserProfile>) :
             val email = itemView.findViewById<TextView>(R.id.email)
             val bio = itemView.findViewById<TextView>(R.id.bio)
             val public_repos = itemView.findViewById<TextView>(R.id.public_repos)
-
             val avatar = itemView.findViewById<ImageView>(R.id.avatar)
 
             repos.text = "REPOS"
-
             name.text = userProfile.name
             login.text = userProfile.login
             location.text = userProfile.location
@@ -50,7 +49,6 @@ class MainAdapter(val userList: List<UserProfile>) :
 
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
@@ -59,6 +57,7 @@ class MainAdapter(val userList: List<UserProfile>) :
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bindData(userList[position])
+        holder.repos.setOnClickListener { onRepoButtonListener.onRepoButton() }
     }
 
     override fun getItemCount(): Int {
