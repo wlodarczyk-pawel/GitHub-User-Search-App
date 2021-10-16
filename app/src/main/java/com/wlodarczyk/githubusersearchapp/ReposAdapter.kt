@@ -1,6 +1,8 @@
 package com.wlodarczyk.githubusersearchapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,9 @@ import com.wlodarczyk.githubusersearchapp.network.UserRepos
 class ReposAdapter(val userRepos: List<UserRepos>) :
     RecyclerView.Adapter<ReposAdapter.MainViewHolder>() {
 
-    inner class MainViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val open = itemView.findViewById<Button>(R.id.open)
+
         @SuppressLint("SetTextI18n")
         fun bindData(userRepos: UserRepos) {
 
@@ -23,9 +27,18 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
             val size = itemView.findViewById<TextView>(R.id.size)
             val stars_count = itemView.findViewById<TextView>(R.id.stars_count)
             val watchers_count = itemView.findViewById<TextView>(R.id.watchers_count)
-            val open = itemView.findViewById<Button>(R.id.open)
+
+            val url : String = userRepos.html_url
 
             open.text = "OPEN"
+            open.setOnClickListener {
+
+                val webIntent: Intent = Uri.parse(url).let { webpage ->
+                    Intent(Intent.ACTION_VIEW, webpage)
+                }
+                itemView.context.startActivity(webIntent)
+            }
+
             repo_name.text = userRepos.name
             description.text = userRepos.description
             created_at.text = "Created at " + userRepos.created_at
@@ -45,6 +58,7 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bindData(userRepos[position])
+
     }
 
     override fun getItemCount(): Int {

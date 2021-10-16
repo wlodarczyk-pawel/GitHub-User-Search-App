@@ -1,7 +1,10 @@
 package com.wlodarczyk.githubusersearchapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -20,14 +23,17 @@ import retrofit2.Response
 class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
 
     lateinit var button: Button
-    var userName : String = ""
+    var userName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_search)
 
         button = findViewById(R.id.button_search)
-        button.setOnClickListener { fetchUsers() }
+        button.setOnClickListener {
+            fetchUsers()
+            button.hideKeyboard()
+        }
 
     }
 
@@ -69,7 +75,6 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
     private fun handleResponse(response: Response<UserProfile>, userName: String) {
 
         if (response.isSuccessful) {
-            Log.d("onResponse: ", "success " + response.body())
 
             val result = listOf(response.body())
             result.let {
@@ -80,7 +85,6 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
                 recyclerView?.adapter = adapter
 
             }
-            //fetchRepos(userName)
         }
     }
 
@@ -110,7 +114,6 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
     private fun handleResponseRepos(response: Response<List<UserRepos>>) {
 
         if (response.isSuccessful) {
-            Log.d("onResponseRepos: ", "success " + response.body())
 
             val result = response.body()
             result?.let {
@@ -122,9 +125,14 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
             }
         }
     }
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
 }
 
 interface OnRepoButtonListener {
     fun onRepoButton()
 }
+

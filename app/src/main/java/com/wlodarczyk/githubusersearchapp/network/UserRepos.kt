@@ -19,6 +19,7 @@ data class UserRepos(
     @Json(name = "stargazers_count")
     val stargazers_count: String,
     @Json(name = "watchers_count")
-    val watchers_count: String
+    val watchers_count: String,
+
 
 )

@@ -16,9 +16,9 @@ import com.wlodarczyk.githubusersearchapp.ui.OnRepoButtonListener
 class MainAdapter(val userList: List<UserProfile>, val onRepoButtonListener: OnRepoButtonListener) :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    inner class MainViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var repos : Button = itemView.findViewById<Button>(R.id.repos)
+        var repos = itemView.findViewById<Button>(R.id.repos)
 
         @SuppressLint("SetTextI18n")
         fun bindData(userProfile: UserProfile) {
