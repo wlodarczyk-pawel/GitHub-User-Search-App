@@ -3,7 +3,7 @@ package com.wlodarczyk.githubusersearchapp.network
 import com.squareup.moshi.Json
 
 data class UserRepos(
-
+    // example json data
     @Json(name = "name")
     val name: String,
     @Json(name = "html_url")
@@ -20,6 +20,5 @@ data class UserRepos(
     val stargazers_count: String,
     @Json(name = "watchers_count")
     val watchers_count: String,
-
 
 )

@@ -3,7 +3,7 @@ package com.wlodarczyk.githubusersearchapp.network
 import com.squareup.moshi.Json
 
 data class UserProfile(
-
+    // example json data
     @Json(name = "login")
     val login: String,
     @Json(name = "avatar_url")

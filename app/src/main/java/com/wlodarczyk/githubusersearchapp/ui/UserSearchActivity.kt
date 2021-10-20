@@ -28,9 +28,11 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_search)
+        supportActionBar?.hide()
 
         button = findViewById(R.id.button_search)
         button.setOnClickListener {
+            clearRecyclerView()
             fetchUsers()
             button.hideKeyboard()
         }
@@ -39,6 +41,11 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
 
     override fun onRepoButton() {
         fetchRepos(userName)
+    }
+
+    private fun clearRecyclerView() {
+        val recyclerView = findViewById<RecyclerView>(R.id.reposRecyclerView)
+        recyclerView.adapter = null
     }
 
     private fun fetchUsers() {
@@ -83,7 +90,6 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
                 recyclerView?.layoutManager =
                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
                 recyclerView?.adapter = adapter
-
             }
         }
     }
@@ -107,7 +113,7 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
             })
 
         } else {
-            Toast.makeText(this@UserSearchActivity, "Repos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@UserSearchActivity, "Enter User Name!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -125,6 +131,7 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
             }
         }
     }
+
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)

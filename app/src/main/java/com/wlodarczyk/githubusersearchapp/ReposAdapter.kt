@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wlodarczyk.githubusersearchapp.network.UserRepos
 
-class ReposAdapter(val userRepos: List<UserRepos>) :
+class ReposAdapter(var userRepos: List<UserRepos>) :
     RecyclerView.Adapter<ReposAdapter.MainViewHolder>() {
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,7 +19,6 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
 
         @SuppressLint("SetTextI18n")
         fun bindData(userRepos: UserRepos) {
-
             val repo_name = itemView.findViewById<TextView>(R.id.repo_name)
             val description = itemView.findViewById<TextView>(R.id.description)
             val created_at = itemView.findViewById<TextView>(R.id.created_at)
@@ -46,7 +45,6 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
             size.text = "Size: " + userRepos.size
             stars_count.text = "Stars: " + userRepos.stargazers_count
             watchers_count.text = "Watchers: " + userRepos.watchers_count
-
         }
     }
 
@@ -58,12 +56,12 @@ class ReposAdapter(val userRepos: List<UserRepos>) :
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bindData(userRepos[position])
-
     }
 
     override fun getItemCount(): Int {
         return userRepos.size
     }
+
 }
 
 

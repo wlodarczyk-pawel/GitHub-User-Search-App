@@ -31,12 +31,12 @@ class MainAdapter(val userList: List<UserProfile>, val onRepoButtonListener: OnR
             val public_repos = itemView.findViewById<TextView>(R.id.public_repos)
             val avatar = itemView.findViewById<ImageView>(R.id.avatar)
 
-            repos.text = "REPOS"
+            repos.text = "SHOW REPOS"
             name.text = userProfile.name
-            login.text = userProfile.login
-            location.text = userProfile.location
-            email.text = userProfile.email
-            bio.text = userProfile.bio
+            login.text = "Login: " + userProfile.login
+            location.text = "Location: " + userProfile.location
+            email.text = "Email: " + userProfile.email
+            bio.text = "Bio: " + userProfile.bio
             public_repos.text = "Repositories: " + userProfile.public_repos
 
             avatar.load(userProfile.avatar_url) {
