@@ -5,36 +5,34 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wlodarczyk.githubusersearchapp.MainAdapter
-import com.wlodarczyk.githubusersearchapp.R
 import com.wlodarczyk.githubusersearchapp.ReposAdapter
+import com.wlodarczyk.githubusersearchapp.databinding.ActivityUserSearchBinding
 import com.wlodarczyk.githubusersearchapp.network.ApiClient
 import com.wlodarczyk.githubusersearchapp.network.UserProfile
 import com.wlodarczyk.githubusersearchapp.network.UserRepos
 import retrofit2.Call
 import retrofit2.Response
 
-class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
+class UserSearchActivity: AppCompatActivity(), OnRepoButtonListener {
 
-    lateinit var button: Button
+    private lateinit var binding: ActivityUserSearchBinding
+
     var userName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_search)
+        binding = ActivityUserSearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
-        button = findViewById(R.id.button_search)
-        button.setOnClickListener {
+        binding.buttonSearch.setOnClickListener {
             clearRecyclerView()
             fetchUsers()
-            button.hideKeyboard()
+            binding.buttonSearch.hideKeyboard()
         }
 
     }
@@ -44,14 +42,12 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
     }
 
     private fun clearRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.reposRecyclerView)
-        recyclerView.adapter = null
+        binding.reposRecyclerView.adapter = null
     }
 
     private fun fetchUsers() {
 
-        val enterUserName = findViewById(R.id.enterUserName) as EditText
-        userName = enterUserName.text.toString()
+        userName = binding.enterUserName.text.toString()
 
         if (userName.trim().isNotEmpty()) {
 
@@ -61,7 +57,7 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
                 override fun onResponse(
                     call: Call<UserProfile>, response: Response<UserProfile>
                 ) {
-                    handleResponse(response, userName)
+                    handleResponse(response)
                 }
 
                 override fun onFailure(call: Call<UserProfile>, t: Throwable) {
@@ -79,17 +75,17 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
         }
     }
 
-    private fun handleResponse(response: Response<UserProfile>, userName: String) {
+    private fun handleResponse(response: Response<UserProfile>) {
 
         if (response.isSuccessful) {
 
             val result = listOf(response.body())
             result.let {
                 val adapter = MainAdapter(result as List<UserProfile>, this)
-                val recyclerView = findViewById<RecyclerView>(R.id.usersRecyclerView)
-                recyclerView?.layoutManager =
+                binding.usersRecyclerView
+                binding.usersRecyclerView.layoutManager =
                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                recyclerView?.adapter = adapter
+                binding.usersRecyclerView.adapter = adapter
             }
         }
     }
@@ -123,11 +119,10 @@ class UserSearchActivity : AppCompatActivity(), OnRepoButtonListener {
 
             val result = response.body()
             result?.let {
-                val adapter = ReposAdapter(result as List<UserRepos>)
-                val recyclerView = findViewById<RecyclerView>(R.id.reposRecyclerView)
-                recyclerView?.layoutManager =
+                val adapter = ReposAdapter(result)
+                binding.reposRecyclerView.layoutManager =
                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-                recyclerView?.adapter = adapter
+                binding.reposRecyclerView.adapter = adapter
             }
         }
     }
