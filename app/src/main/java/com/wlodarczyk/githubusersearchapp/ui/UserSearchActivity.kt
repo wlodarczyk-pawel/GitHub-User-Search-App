@@ -8,8 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.wlodarczyk.githubusersearchapp.MainAdapter
-import com.wlodarczyk.githubusersearchapp.ReposAdapter
+import com.wlodarczyk.githubusersearchapp.adapters.MainAdapter
+import com.wlodarczyk.githubusersearchapp.adapters.ReposAdapter
 import com.wlodarczyk.githubusersearchapp.databinding.ActivityUserSearchBinding
 import com.wlodarczyk.githubusersearchapp.network.ApiClient
 import com.wlodarczyk.githubusersearchapp.network.UserProfile

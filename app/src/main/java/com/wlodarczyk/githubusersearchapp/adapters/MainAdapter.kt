@@ -1,15 +1,14 @@
-package com.wlodarczyk.githubusersearchapp
+package com.wlodarczyk.githubusersearchapp.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.wlodarczyk.githubusersearchapp.R
+import com.wlodarczyk.githubusersearchapp.databinding.RvItemBinding
 import com.wlodarczyk.githubusersearchapp.network.UserProfile
 import com.wlodarczyk.githubusersearchapp.ui.OnRepoButtonListener
 
@@ -18,28 +17,20 @@ class MainAdapter(val userList: List<UserProfile>, val onRepoButtonListener: OnR
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var repos = itemView.findViewById<Button>(R.id.repos)
+        val binding = RvItemBinding.bind(itemView)
 
         @SuppressLint("SetTextI18n")
         fun bindData(userProfile: UserProfile) {
 
-            val name = itemView.findViewById<TextView>(R.id.name)
-            val login = itemView.findViewById<TextView>(R.id.login)
-            val location = itemView.findViewById<TextView>(R.id.location)
-            val email = itemView.findViewById<TextView>(R.id.email)
-            val bio = itemView.findViewById<TextView>(R.id.bio)
-            val public_repos = itemView.findViewById<TextView>(R.id.public_repos)
-            val avatar = itemView.findViewById<ImageView>(R.id.avatar)
+            binding.repos.text = "SHOW REPOS"
+            binding.name.text = userProfile.name
+            binding.login.text = "Login: " + userProfile.login
+            binding.location.text = "Location: " + userProfile.location
+            binding.email.text = "Email: " + userProfile.email
+            binding.bio.text = "Bio: " + userProfile.bio
+            binding.publicRepos.text = "Repositories: " + userProfile.public_repos
 
-            repos.text = "SHOW REPOS"
-            name.text = userProfile.name
-            login.text = "Login: " + userProfile.login
-            location.text = "Location: " + userProfile.location
-            email.text = "Email: " + userProfile.email
-            bio.text = "Bio: " + userProfile.bio
-            public_repos.text = "Repositories: " + userProfile.public_repos
-
-            avatar.load(userProfile.avatar_url) {
+            binding.avatar.load(userProfile.avatar_url) {
                 crossfade(700)
                 transformations(CircleCropTransformation())
                 scale(coil.size.Scale.FILL)
@@ -56,8 +47,14 @@ class MainAdapter(val userList: List<UserProfile>, val onRepoButtonListener: OnR
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bindData(userList[position])
-        holder.repos.setOnClickListener { onRepoButtonListener.onRepoButton() }
+        val currentItem = userList[position]
+
+        holder.bindData(currentItem)
+        with(holder) {
+            binding.repos.setOnClickListener {
+                onRepoButtonListener.onRepoButton()
+            }
+        }
     }
 
     override fun getItemCount(): Int {
